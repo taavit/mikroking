@@ -43,6 +43,17 @@ class Application
     protected function handleController($handler, $arguments, ServerRequestInterface $request)
     {
         $reflection = new \ReflectionMethod($this->container[$handler[0]], $handler[1]);
-        return $reflection->invokeArgs($this->container[$handler[0]], $arguments);
+        $parameters = [];
+        foreach ($reflection->getParameters() as $parameter) {
+            $parameterName = $parameter->getName();
+            if ($parameter->getClass()) {
+                $className = $parameter->getClass()->getName();
+                if ($request instanceof $className) {
+                    $parameters[] = $request;
+                }
+            }
+            $parameters[] = isset($arguments[$parameterName]) ? $arguments[$parameterName] : null;
+        }
+        return $reflection->invokeArgs($this->container[$handler[0]], $parameters);
     }
 }

@@ -6,10 +6,14 @@ use Zend\Diactoros\ServerRequest;
 
 class HelloController
 {
-    public function hello($name)
+    public function hello($name, ServerRequest $request)
     {
         $response = new Response();
-        $response->getBody()->write("hello $name");
+        $body = "hello $name";
+        if (isset($request->getQueryParams()['upper'])) {
+            $body = strtoupper($body);
+        }
+        $response->getBody()->write($body);
         return $response;
     }
 }

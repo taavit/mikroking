@@ -45,7 +45,7 @@ class Application
         $reflection = new \ReflectionMethod($this->container[$handler[0]], $handler[1]);
         $parameters = [];
         foreach ($reflection->getParameters() as $parameter) {
-            $parameterName = $parameter->getName();
+            $parameterName = $parameter->name;
             if ($parameter->getClass()) {
                 $className = $parameter->getClass()->getName();
                 if ($request instanceof $className) {

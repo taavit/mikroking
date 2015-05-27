@@ -46,8 +46,7 @@ class Application
         foreach ($reflection->getParameters() as $parameter) {
             $parameterName = $parameter->name;
             if ($parameter->getClass()) {
-                $className = $parameter->getClass()->getName();
-                if ($request instanceof $className) {
+                if ($parameter->getClass()->isInstance($request)) {
                     $parameters[] = $request;
                 }
             }

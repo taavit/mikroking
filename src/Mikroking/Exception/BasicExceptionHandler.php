@@ -7,6 +7,6 @@ class BasicExceptionHandler implements ExceptionHandlerInterface
 {
     public function handle(BaseException $exception)
     {
-        return new HtmlResponse($exception->getMessage(), $exception->getCode());
+        return new HtmlResponse($exception->getMessage(), $exception->getCode(), $exception->getHeaders());
     }
 }

@@ -11,6 +11,9 @@ class Application
     protected $dispatcher;
     protected $container;
 
+    protected $exceptionHandler;
+    protected $controllerHandler;
+
     public function setExceptionHandler(ExceptionHandlerInterface $exceptionHandler)
     {
         $this->exceptionHandler = $exceptionHandler;
